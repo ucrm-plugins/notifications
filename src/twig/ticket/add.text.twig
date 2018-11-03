@@ -1,0 +1,16 @@
+{% set EOL = "\r\n" %}
+{% set TAB = "    " %}
+{% set PAD = "% -20.20s" %}
+{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{% if personalized and user %}
+    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL }}
+{% else %}
+    {{- "Dear Sales Team,"|translate }}{{ EOL }}
+{% endif %}
+{{- EOL -}}
+{{- "The following Ticket has been added to the UCRM."|translate }}{{ EOL -}}
+{{- EOL -}}
+{# Ticket #}
+{% include "_partials/ticket.text.twig" %}
+{# Client #}
+{% include "_partials/client.text.twig" %}

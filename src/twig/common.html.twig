@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang={{ locale()|default("en-US") }}>
+<head>
+    <meta charset={{ charset|default("UTF-8") }}>
+    <title>UCRM Notification</title>
+</head>
+
+<body>
+<style>
+    {% include "common.css" %}
+</style>
+<div class="container">
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>

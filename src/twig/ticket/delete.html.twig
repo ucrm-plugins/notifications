@@ -1,0 +1,15 @@
+{% extends "common.html.twig" %}
+
+{% block body %}
+    <div>
+        {# Salutation #}
+        <p>
+            {{ "Dear Sales Team,"|translate }}
+        </p>
+
+        {# Content #}
+        <p>
+            {{ "The " ~ entity|capitalize ~ " with ID: " ~ entityId ~ " has been deleted in the UCRM."|translate }}
+        </p>
+    </div>
+{% endblock %}

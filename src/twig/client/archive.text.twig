@@ -1,0 +1,10 @@
+{% set EOL = "\r\n" %}
+{% set TAB = "    " %}
+{% set PAD = "% -20.20s" %}
+{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{{- "Dear Sales Team,"|translate }}{{ EOL }}
+{{- EOL -}}
+{{- "The following Client has been archived in the UCRM."|translate }}{{ EOL -}}
+{{- EOL -}}
+{# Client #}
+{% include "_partials/client.text.twig" %}
