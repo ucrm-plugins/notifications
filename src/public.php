@@ -9,7 +9,6 @@ use MVQN\UCRM\Plugins\Log;
 use MVQN\UCRM\Plugins\Config;
 use MVQN\UCRM\Plugins\Settings;
 
-use MVQN\UCRM\Plugins\Controllers\EmailActionResult;
 use MVQN\UCRM\Plugins\Controllers\DeleteEventController;
 use MVQN\UCRM\Plugins\Controllers\ClientEventController;
 use MVQN\UCRM\Plugins\Controllers\TicketEventController;
@@ -17,6 +16,8 @@ use MVQN\UCRM\Plugins\Controllers\TicketCommentEventController;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+use MVQN\UCRM\Plugins\Sessions\SymfonySession;
 
 /**
  * public.php
@@ -30,6 +31,70 @@ use PHPMailer\PHPMailer\Exception;
  */
 (function() use ($twig)
 {
+    $loadTemplates = function (?string $entity, ?string $action): array
+    {
+        $templates =
+            [
+                "htmlCustom" => "",
+                "htmlNormal" => "",
+                "textCustom" => "",
+                "textNormal" => "",
+            ];
+
+        if($entity === null || $action === null)
+            return $templates;
+
+        $customHtmlPath = __DIR__."/data/twig/$entity/$action.html.twig";
+        $normalHtmlPath = __DIR__."/twig/$entity/$action.html.twig";
+
+        if(file_exists($customHtmlPath))
+        {
+            $realHtmlPath = realpath($customHtmlPath);
+            $htmlTwig = $realHtmlPath ? file_get_contents($realHtmlPath) : "";
+            $templates["htmlCustom"] = $htmlTwig;
+        }
+
+        if(file_exists($normalHtmlPath))
+        {
+            $realHtmlPath = realpath($normalHtmlPath);
+            $htmlTwig = $realHtmlPath ? file_get_contents($realHtmlPath) : "";
+            $templates["htmlNormal"] = $htmlTwig;
+        }
+        /*
+        else
+        {
+            die("A required template file '$entity.$action.html.twig' could not be found at either '$customHtmlPath' ".
+                "or '$normalHtmlPath'!");
+        }
+        */
+
+        $customTextPath = __DIR__."/data/twig/$entity/$action.text.twig";
+        $normalTextPath = __DIR__."/twig/$entity/$action.text.twig";
+
+        if(file_exists($customTextPath))
+        {
+            $realTextPath = realpath($customTextPath);
+            $textTwig = $realTextPath ? file_get_contents($realTextPath) : "";
+            $templates["textCustom"] = $textTwig;
+        }
+
+        if(file_exists($normalTextPath))
+        {
+            $realTextPath = realpath($normalTextPath);
+            $textTwig = $realTextPath ? file_get_contents($realTextPath) : "";
+            $templates["textNormal"] = $textTwig;
+        }
+        /*
+        else
+        {
+            die("A required template file '$entity.$action.text.twig' could not be found at either '$customTextPath' ".
+                "or '$normalTextPath'!");
+        }
+        */
+
+        return $templates;
+    };
+
     // Parse the input received from Webhook events.
     $data = file_get_contents("php://input");
     //Log::write("RECEIVED: ".$data);
@@ -37,9 +102,95 @@ use PHPMailer\PHPMailer\Exception;
     // Parse the JSON payload into an array for further handling.
     $dataArray = json_decode($data, true);
 
+
+    if(isset($_GET["save"]) && isset($_GET["template"]))
+    {
+        try
+        {
+            $htmlContent = str_replace("\r\n", "\n", $_POST["html"]);
+            $textContent = str_replace("\r\n", "\n", $_POST["text"]);
+
+            $template = explode(".", $_GET["template"]);
+            $entity = $template[0];
+            $action = $template[1];
+
+            $customHtmlPath = __DIR__ . "/data/twig/$entity/$action.html.twig";
+            $normalHtmlPath = __DIR__ . "/twig/$entity/$action.html.twig";
+
+            if (!file_exists(dirname($customHtmlPath)))
+                mkdir(dirname($customHtmlPath), 0755, true);
+
+            if (file_get_contents($normalHtmlPath) === $htmlContent && file_exists($customHtmlPath))
+                unlink($customHtmlPath);
+            else
+                file_put_contents($customHtmlPath, $htmlContent);
+
+            $customTextPath = __DIR__ . "/data/twig/$entity/$action.text.twig";
+            $normalTextPath = __DIR__ . "/twig/$entity/$action.text.twig";
+
+            if (!file_exists(dirname($customTextPath)))
+                mkdir(dirname($customTextPath), 0755, true);
+
+            if (file_get_contents($normalTextPath) === $textContent && file_exists($customTextPath))
+                unlink($customTextPath);
+            else
+                file_put_contents($customTextPath, $textContent);
+
+            $query = "public.php?template=" . $_GET["template"] . "&saved=success";
+
+            header("Location: $query");
+        }
+        catch (\Exception $e)
+        {
+            $query = "public.php?template=" . $_GET["template"] . "&saved=failure";
+
+            header("Location: $query");
+        }
+    }
+
     // IF the array/payload is empty, THEN return a "Bad Request" response and skip this event!
     if (!$dataArray)
-        Log::http("The Webhook Event payload was empty!\n$data", 400);
+    {
+        if(!SymfonySession::isAnyUserLoggedIn())
+            die("No user is currently authenticated!");
+
+        $roles = SymfonySession::getCurrentUserRoles();
+
+        if(!in_array("ROLE_SUPER_ADMIN", $roles) && !in_array("ROLE_ADMIN", $roles))
+            die("You must be logged in as an Admin to access the template editor!");
+
+        $save = isset($_GET["save"]) ? $_GET["save"] : null;
+        $saved = isset($_GET["saved"]) ? $_GET["saved"] : null;
+
+        $saveText = json_encode($_POST);
+
+        $template = isset($_GET["template"]) ? $_GET["template"] : null;
+        $entity = $template !== null ? explode(".", $template)[0] : null;
+        $action = $template !== null ? explode(".", $template)[1] : null;
+
+        $templates = $loadTemplates($entity, $action);
+
+        //print_r($templates);
+
+        echo $twig->render("editor.html.twig",
+            [
+                "entity" => $entity, "action" => $action,
+                "saved" => $saved,
+                "htmlCustom" => $templates["htmlCustom"] !== "" ? $templates["htmlCustom"] : $templates["htmlNormal"], "htmlNormal" => $templates["htmlNormal"],
+                "textCustom" => $templates["textCustom"] !== "" ? $templates["textCustom"] : $templates["textNormal"], "textNormal" => $templates["textNormal"],
+                "saveText" => $saveText
+            ]
+        );
+
+        http_response_code(200);
+        Log::info("Template editor accessed by an Admin User.");
+        die();
+        //Log::http("Template editor accessed by an Admin User.", 200);
+    }
+
+
+
+
 
     // Attempt to get the UUID from the payload.
     $uuid = array_key_exists("uuid", $dataArray) ? $dataArray["uuid"] : "";

@@ -151,9 +151,13 @@ class TicketEventController extends EventController
         // =============================================================================================================
 
         // Generate the HTML version of the email, then minify and reformat cleanly!
-        $results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("ticket/$action.html.twig", $viewData)));
+        //$results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("ticket/$action.html.twig", $viewData)));
+        $results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render(
+            $this->getTemplate("ticket", $action, "html"), $viewData)));
         $viewData["personalized"] = true;
-        $results["1"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("ticket/$action.html.twig", $viewData)));
+        //$results["1"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("ticket/$action.html.twig", $viewData)));
+        $results["1"]->html = HTML::tidyHTML(HTML::minify($this->twig->render(
+            $this->getTemplate("ticket", $action, "html"), $viewData)));
         $viewData["personalized"] = false;
 
         // =============================================================================================================
@@ -161,9 +165,11 @@ class TicketEventController extends EventController
         // =============================================================================================================
 
         // Generate the TEXT version of the email, to be used as a fall back!
-        $results["0"]->text = $this->twig->render("ticket/$action.text.twig", $viewData);
+        //$results["0"]->text = $this->twig->render("ticket/$action.text.twig", $viewData);
+        $results["0"]->text = $this->twig->render($this->getTemplate("ticket", $action, "text"), $viewData);
         $viewData["personalized"] = true;
-        $results["1"]->text = $this->twig->render("ticket/$action.text.twig", $viewData);
+        //$results["1"]->text = $this->twig->render("ticket/$action.text.twig", $viewData);
+        $results["1"]->text = $this->twig->render($this->getTemplate("ticket", $action, "text"), $viewData);
         $viewData["personalized"] = false;
 
         // =============================================================================================================

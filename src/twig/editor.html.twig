@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang={{ locale()|default("en-US") }}>
+<head>
+    <meta charset={{ charset|default("UTF-8") }}>
+    <title>UCRM Notification Editor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+{# Page Styles #}
+<style type="text/css" media="screen">{% include "editor.css" %}</style>
+
+<div class="container">
+    {# Menu #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        {# Brand #}
+        <a class="navbar-brand" href="#">Template Editor</a>
+
+        {# Collapse Button #}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {# Navigation #}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {# Client #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Client
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=client.add">Add</a>
+                        <a class="dropdown-item" href="?template=client.archive">Archive</a>
+                        <a class="dropdown-item" href="?template=client.delete">Delete</a>
+                        <a class="dropdown-item" href="?template=client.edit">Edit</a>
+                        <a class="dropdown-item" href="?template=client.invite">Invite</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Invoice #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Invoice
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=invoice.add">Add</a>
+                        <a class="dropdown-item" href="?template=invoice.add_draft">Add Draft</a>
+                        <a class="dropdown-item" href="?template=invoice.delete">Delete</a>
+                        <a class="dropdown-item" href="?template=invoice.edit">Edit</a>
+                        <a class="dropdown-item" href="?template=invoice.near_due">Near Due</a>
+                        <a class="dropdown-item" href="?template=invoice.overdue">Overdue</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Payment #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Payment
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=payment.add">Add</a>
+                        <a class="dropdown-item" href="?template=payment.delete">Delete</a>
+                        <a class="dropdown-item" href="?template=payment.edit">Edit</a>
+                        <a class="dropdown-item" href="?template=payment.unmatch">Unmatch</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Quote #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Quote
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=quote.add">Add</a>
+                        <a class="dropdown-item" href="?template=quote.delete">Delete</a>
+                        <a class="dropdown-item" href="?template=quote.edit">Edit</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Service #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Service
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=service.add">Add</a>
+                        <a class="dropdown-item" href="?template=service.archive">Archive</a>
+                        <a class="dropdown-item" href="?template=service.edit">Edit</a>
+                        <a class="dropdown-item" href="?template=service.end">End</a>
+                        <a class="dropdown-item" href="?template=service.postpone">Postpone</a>
+                        <a class="dropdown-item" href="?template=service.suspend">Suspend</a>
+                        <a class="dropdown-item" href="?template=service.suspend_cancel">Suspend Cancel</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Ticket #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ticket
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=ticket.add">Add</a>
+                        <a class="dropdown-item" href="?template=ticket.comment">Comment</a>
+                        <a class="dropdown-item" href="?template=ticket.delete">Delete</a>
+                        <a class="dropdown-item" href="?template=ticket.edit">Edit</a>
+                        <a class="dropdown-item" href="?template=ticket.status_change">Status Change</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# User #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=user.reset_password">Reset Password</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Webhook #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Webhook
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="?template=webhook.test">Test</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+            </ul>
+
+            {# Save #}
+            {#
+            <form class="form-inline my-2 my-lg-0">
+                <button id="saveButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+            </form>
+            #}
+        </div>
+    </nav>
+
+    {# Saved Status #}
+    {% if saved != null %}
+        {% if saved == "success" %}
+            <div id="alerts" class="alert alert-success">
+                The template(s) have been saved successfully.
+            </div>
+        {% elseif saved == "failure" %}
+            <div id="alerts" class="alert alert-danger">
+                The template(s) could not be saved, see the plugin log for more details!
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <form id="htmlForm" method="POST" action="?template={{ entity }}.{{ action }}&save">
+        {# HTML Editor #}
+        <div class="d-sm-flex justify-content-between mt-3 mb-2">
+            <h5 class="d-sm-inline-block m-0 mb-1 mb-sm-0 align-self-center">HTML</h5>
+            <div id="htmlResetButton" class="btn btn-outline-secondary btn-sm col-sm-3 col-md-2 {{ htmlCustom == htmlNormal ? "disabled" : "" }}">Reset to Default</div>
+        </div>
+        <div id="htmlEditor" class="editor">{{ htmlCustom }}</div>
+        <textarea id="htmlContent" name="html" hidden></textarea>
+        <pre id="htmlNormal" hidden>{{ htmlNormal }}</pre>
+
+
+        {# TEXT Editor #}
+        <div class="d-sm-flex justify-content-between mt-3 mb-2">
+            <h5 class="d-sm-inline-block m-0 mb-1 mb-sm-0 align-self-center">TEXT</h5>
+            <div id="textResetButton" class="btn btn-outline-secondary btn-sm col-sm-3 col-md-2 disabled">Reset to Default</div>
+        </div>
+        <div id="textEditor" class="editor">{{ textCustom }}</div>
+        <textarea id="textContent" name="text" hidden></textarea>
+        <pre id="textNormal" hidden>{{ textNormal }}</pre>
+
+        <div class="d-flex justify-content-end mt-3">
+            <div id="saveButton" class="btn btn-outline-primary btn-sm col-sm-3 col-md-2 disabled">Save</div>
+        </div>
+    </form>
+
+</div>
+
+{# jQuery #}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+</script>
+
+{# Boostrap #}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+        integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous">
+</script>
+
+{# ACE Editor #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/mode-twig.js"></script>
+<script>
+    const minLines = 10;
+    const maxLines = 1000;
+
+    let htmlEditor = ace.edit("htmlEditor");
+    htmlEditor.setTheme("ace/theme/chrome");
+    htmlEditor.session.setMode("ace/mode/twig");
+    htmlEditor.setOptions({
+        minLines: (htmlEditor.session.getLength() + 1 < minLines ? minLines : htmlEditor.session.getLength() + 1),
+        maxLines: maxLines
+    });
+    htmlEditor.setShowPrintMargin(false);
+    htmlEditor.on("change", function()
+    {
+        htmlEditor.setOption("minLines",
+            htmlEditor.session.getLength() + 1 < minLines ? minLines : htmlEditor.session.getLength() + 1);
+
+        let $saveButton = $("#saveButton");
+        let $resetButton = $("#htmlResetButton");
+
+        if(htmlEditor.getValue() !== $("#htmlNormal").text())
+            $resetButton.removeClass("disabled");
+        else
+            $resetButton.addClass("disabled");
+
+        if(htmlEditor.getValue() !== startingHtmlContent)
+            $saveButton.removeClass("disabled");
+        else
+            $saveButton.addClass("disabled");
+    });
+
+    let textEditor = ace.edit("textEditor");
+    textEditor.setTheme("ace/theme/chrome");
+    textEditor.session.setMode("ace/mode/text");
+    textEditor.setOptions({
+        minLines: (textEditor.session.getLength() + 1 < minLines ? minLines : textEditor.session.getLength() + 1),
+        maxLines: maxLines
+    });
+    textEditor.setShowPrintMargin(false);
+    textEditor.on("change", function()
+    {
+        textEditor.setOption("minLines",
+            textEditor.session.getLength() + 1 < minLines ? minLines : textEditor.session.getLength() + 1);
+
+        let $saveButton = $("#saveButton");
+        let $resetButton = $("#textResetButton");
+
+        if(textEditor.getValue() !== $("#textNormal").text())
+            $resetButton.removeClass("disabled");
+        else
+            $resetButton.addClass("disabled");
+
+        if(textEditor.getValue() !== startingTextContent)
+            $saveButton.removeClass("disabled");
+        else
+            $saveButton.addClass("disabled");
+    });
+
+</script>
+
+<script>
+
+    let startingHtmlCustom;
+    let startingHtmlContent;
+
+    let startingTextCustom;
+    let startingTextContent;
+
+
+    $("#htmlResetButton").on("click", function(e)
+    {
+        let $resetButton = $("#htmlResetButton");
+        let $saveButton = $("#saveButton");
+
+        if($resetButton.hasClass("disabled"))
+            return;
+
+        let html = $("#htmlNormal").text();
+        htmlEditor.setValue(html, -1);
+
+
+        if(startingHtmlCustom)
+            $saveButton.removeClass("disabled");
+    });
+
+    $("#textResetButton").on("click", function(e)
+    {
+        let $resetButton = $("#textResetButton");
+        let $saveButton = $("#saveButton");
+
+        if($resetButton.hasClass("disabled"))
+            return;
+
+        let text = $("#textNormal").text();
+        textEditor.setValue(text, -1);
+
+        if(startingTextCustom)
+            $saveButton.removeClass("disabled");
+    });
+
+
+
+    $("#saveButton").on("click", function(e)
+    {
+        if($("#saveButton").hasClass("disabled"))
+            return;
+
+        e.preventDefault();
+
+        $("#htmlContent").val(htmlEditor.getValue());
+        $("#textContent").val(textEditor.getValue());
+
+        $("#htmlForm").submit();
+    });
+
+
+
+    // Ready
+    $(function()
+    {
+        //let params = new URLSearchParams(window.location.search);
+        //let template = params.get("template");
+
+        //if(template === null || template === "")
+        //    return;
+
+
+
+        startingHtmlCustom = (htmlEditor.getValue() !== $("#htmlNormal").text());
+        startingHtmlContent = htmlEditor.getValue();
+
+        startingTextCustom = (textEditor.getValue() !== $("#textNormal").text());
+        startingTextContent = textEditor.getValue();
+
+
+        {#
+        {% set entity = params.template|split(".")[0] %}
+        {% set action = params.template|split(".")[1] %}
+
+        {% set templates = loadTemplates("client", "add") %}
+        #}
+
+        {#{% if templates %}console.log({{ templates }});{% endif %}#}
+
+        {#let htmlCustom = {{ templates.htmlCustom|raw }};#}
+        {#let htmlNormal = {{ templates.htmlNormal|raw }};#}
+
+        {#let textCustom = {{ templates.textCustom|raw }};#}
+        {#let textNormal = {{ templates.textNormal|raw }};#}
+
+        //console.log(htmlNormal);
+        //console.log(textNormal);
+
+        //htmlEditor.setValue(htmlNormal, -1);
+        //textEditor.setValue(textNormal, -1);
+
+        //htmlEditor.focus();
+
+
+
+
+    });
+
+</script>
+
+
+
+</body>
+</html>

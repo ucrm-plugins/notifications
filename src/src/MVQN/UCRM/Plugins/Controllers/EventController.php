@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MVQN\UCRM\Plugins\Controllers;
 
+use MVQN\UCRM\Plugins\Plugin;
+
 /**
  * Class EventController
  *
@@ -30,6 +32,31 @@ abstract class EventController
      * @return EmailActionResult[]
      */
     public abstract function action(string $action, int $entityId): array;
+
+
+    public function getTemplate(string $entity, string $action, string $format): string
+    {
+        if($format !== "html" && $format !== "text")
+        {
+            http_response_code(501);
+            die("Only 'html' and 'text' formats are currently supported!");
+        }
+
+        $customTemplateFile = Plugin::getDataPath()."/twig/$entity/$action.$format.twig";
+        $copiedTemplateFile = Plugin::getRootPath()."/twig/$entity/$action.$format-custom.twig";
+
+        if(file_exists($customTemplateFile)) // Always copy to make certain we have the latest?
+        {
+            copy($customTemplateFile, Plugin::getRootPath()."/twig/$entity/$action.$format-custom.twig");
+            $useCustom = true;
+        }
+        else
+        {
+            $useCustom = false;
+        }
+
+        return "$entity/$action.$format".($useCustom ? "-custom" : "").".twig";
+    }
 
 
     public static function replaceVariables(string $string, array $replacements = [],

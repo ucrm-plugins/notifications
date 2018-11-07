@@ -22,13 +22,13 @@ namespace MVQN\UCRM\Plugins;
 final class Settings extends SettingsBase
 {
 	/** @const string The absolute path to the root path of this project. */
-	public const PLUGIN_ROOT_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm-plugins\plugins\notifications\src';
+	public const PLUGIN_ROOT_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm\notifications\src';
 
 	/** @const string The absolute path to the data path of this project. */
-	public const PLUGIN_DATA_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm-plugins\plugins\notifications\src\data';
+	public const PLUGIN_DATA_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm\notifications\src\data';
 
 	/** @const string The absolute path to the source path of this project. */
-	public const PLUGIN_SOURCE_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm-plugins\plugins\notifications\src\src';
+	public const PLUGIN_SOURCE_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\mvqn\ucrm\notifications\src\src';
 
 	/** @const string The publicly accessible URL of this UCRM, null if not configured in UCRM. */
 	public const UCRM_PUBLIC_URL = 'http://ucrm.dev.mvqn.net/';

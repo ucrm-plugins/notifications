@@ -8,6 +8,7 @@ use MVQN\Localization\Translator;
 use MVQN\REST\UCRM\Endpoints\Client;
 use MVQN\REST\UCRM\Endpoints\ClientContact;
 use MVQN\UCRM\Plugins\Config;
+use MVQN\UCRM\Plugins\Plugin;
 use MVQN\UCRM\Plugins\Settings;
 
 /**
@@ -80,15 +81,37 @@ class ClientEventController extends EventController
         // HTML
         // =============================================================================================================
 
+        /*
+        $customTemplateFile = Plugin::getDataPath()."/twig/client/$action.html.twig";
+        $copiedTemplateFile = Plugin::getRootPath()."/twig/client/$action.html-custom.twig";
+
+        if(file_exists($customTemplateFile)) // Always copy to make certain we have the latest?
+        {
+            copy($customTemplateFile, Plugin::getRootPath()."/twig/client/$action.html-custom.twig");
+            $useCustom = true;
+        }
+        else
+        {
+            $useCustom = false;
+        }
+
         // Generate the HTML version of the email, then minify and reformat cleanly!
-        $results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("client/$action.html.twig", $viewData)));
+        //$results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render("client/$action.html.twig", $viewData)));
+        $results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render(
+            "client/$action.html".($useCustom ? "-custom" : "").".twig", $viewData)));
+        */
+        $results["0"]->html = HTML::tidyHTML(HTML::minify($this->twig->render(
+            $this->getTemplate("client", $action, "html"), $viewData)));
 
         // =============================================================================================================
         // TEXT
         // =============================================================================================================
 
+
+
         // Generate the TEXT version of the email, to be used as a fall back!
-        $results["0"]->text = $this->twig->render("client/$action.text.twig", $viewData);
+        //$results["0"]->text = $this->twig->render("client/$action.text.twig", $viewData);
+        $results["0"]->text = $this->twig->render($this->getTemplate("client", $action, "text"), $viewData);
 
         // =============================================================================================================
         // SUBJECT

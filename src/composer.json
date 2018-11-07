@@ -23,7 +23,8 @@
 
         "mvqn-ucrm/plugins": "1.*",
         "mvqn-ucrm/rest": "1.*",
-        "mvqn-ucrm/data": "1.*"
+        "mvqn-ucrm/data": "1.*",
+        "symfony/security": "~3.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "7.2.7",

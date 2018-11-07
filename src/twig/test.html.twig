@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang={{ locale()|default("en-US") }}>
+<head>
+    <meta charset={{ charset|default("UTF-8") }}>
+    <title>UCRM Notification Editor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+{# Page Styles #}
+<style type="text/css" media="screen">{% include "editor.css" %}</style>
+
+<div class="container">
+    {# Menu #}
+    <nav class="navbar navbar-expand-xl navbar-light bg-light mb-4">
+        {# Brand #}
+        <a class="navbar-brand" href="#">Template Editor</a>
+
+        {# Collapse Button #}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {# Navigation #}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {# Client #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Client
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#client.add">Add</a>
+                        <a class="dropdown-item" href="#client.archive">Archive</a>
+                        <a class="dropdown-item" href="#client.delete">Delete</a>
+                        <a class="dropdown-item" href="#client.edit">Edit</a>
+                        <a class="dropdown-item" href="#client.invite">Invite</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Invoice #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Invoice
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="#">Add Draft</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">Near Due</a>
+                        <a class="dropdown-item" href="#">Overdue</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Payment #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Payment
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">Unmatch</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Quote #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Payment
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <a class="dropdown-item" href="#">Edit</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Service #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Service
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="#">Archive</a>
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">End</a>
+                        <a class="dropdown-item" href="#">Postpone</a>
+                        <a class="dropdown-item" href="#">Suspend</a>
+                        <a class="dropdown-item" href="#">Suspend Cancel</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Ticket #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ticket
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="#">Comment</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">Status Change</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# User #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Reset Password</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+                {# Webhook #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Webhook
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Test</a>
+                        {#<div class="dropdown-divider"></div>#}
+                    </div>
+                </li>
+
+            </ul>
+
+            {# Save #}
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+            </form>
+        </div>
+    </nav>
+
+    {# HTML Editor #}
+    <div class="d-flex justify-content-between mt-3 mb-2">
+        <h5 class="d-inline-block m-0 align-self-center">HTML</h5>
+        <div id="htmlResetButton" class="btn btn-outline-secondary btn-sm align-right disabled">Reset to Default</div>
+    </div>
+    <div id="htmlEditor" class="editor"></div>
+
+    {# TEXT Editor #}
+    <div class="d-flex justify-content-between mt-3 mb-2">
+        <h5 class="d-inline-block m-0 align-self-center">HTML</h5>
+        <div id="textResetButton" class="btn btn-outline-secondary btn-sm align-right disabled">Reset to Default</div>
+    </div>
+    <div id="textEditor" class="editor"></div>
+
+</div>
+
+{# jQuery #}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+</script>
+
+{# Boostrap #}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+        integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous">
+</script>
+
+{# ACE Editor #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/mode-twig.js"></script>
+<script>
+    let htmlEditor = ace.edit("htmlEditor");
+    htmlEditor.setTheme("ace/theme/chrome");
+    htmlEditor.session.setMode("ace/mode/twig");
+    htmlEditor.setOptions({
+        minLines: 10,
+        maxLines: 1000 // ?
+    });
+    htmlEditor.setShowPrintMargin(false);
+    //htmlEditor.session.setNewLineMode("unix");
+    htmlEditor.on("change", function() {
+        htmlEditor.setOption("minLines", htmlEditor.session.getLength() + 1);
+    });
+
+    let textEditor = ace.edit("textEditor");
+    textEditor.setTheme("ace/theme/chrome");
+    textEditor.session.setMode("ace/mode/text");
+    textEditor.setOptions({
+        minLines: 10,
+        maxLines: 1000 // ?
+    });
+    textEditor.setShowPrintMargin(false);
+    //textEditor.session.setNewLineMode("unix");
+    textEditor.on("change", function() {
+        textEditor.setOption("minLines", textEditor.session.getLength() + 1);
+    });
+
+</script>
+
+<script>
+
+
+
+    $(window).on("hashchange", function()
+    {
+        console.log("TEST");
+
+        let template = window.location.hash.replace("#", "");
+
+        console.log(template);
+
+        //if(template === "")
+        //    return;
+
+        //let entity = template.split(".")[0];
+        //let action = template.split(".")[1];
+
+        //console.log(entity + "/" + action + ".html.twig");
+        //console.log(entity + "/" + action + ".text.twig");
+
+        {% set htmlTemplate = loadTemplate("client/add.html.twig") %}
+        {% set textTemplate = loadTemplate("client/add.text.twig") %}
+
+        let html = {{ htmlTemplate.code|raw }};
+        let text = {{ textTemplate.code|raw }};
+
+
+        htmlEditor.setValue(html, -1);
+        textEditor.setValue(text, -1);
+
+        htmlEditor.focus();
+
+
+    });
+
+
+
+
+
+
+
+
+    // Ready
+    $(function()
+    {
+
+
+    });
+
+</script>
+
+
+
+</body>
+</html>

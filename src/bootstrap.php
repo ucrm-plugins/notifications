@@ -69,7 +69,86 @@ $localeFunction = new Twig_Function("locale",
     }
 );
 
+$loadTemplatesFunction = new Twig_Function("loadTemplates",
+    function(string $entity, string $action): array
+    {
+        $templates =
+            [
+                "htmlCustom" => "",
+                "htmlNormal" => "",
+                "textCustom" => "",
+                "textNormal" => "",
+            ];
+
+        $customHtmlPath = __DIR__."/data/twig/$entity.$action.html.twig";
+        $normalHtmlPath = __DIR__."/twig/$entity.$action.html.twig";
+
+        if(file_exists($customHtmlPath))
+        {
+            $realHtmlPath = realpath($customHtmlPath);
+            $htmlTwig = $realHtmlPath ? file_get_contents($realHtmlPath) : "";
+            $templates["htmlCustom"] = json_encode($htmlTwig, JSON_UNESCAPED_SLASHES);
+        }
+        else if(file_exists($normalHtmlPath))
+        {
+            $realHtmlPath = realpath($normalHtmlPath);
+            $htmlTwig = $realHtmlPath ? file_get_contents($realHtmlPath) : "";
+            $templates["htmlNormal"] = json_encode($htmlTwig, JSON_UNESCAPED_SLASHES);
+        }
+        else
+        {
+            die("A required template file '$entity.$action.html.twig' could not be found at either '$customHtmlPath' ".
+                "or '$normalHtmlPath'!");
+        }
+
+        $customTextPath = __DIR__."/data/twig/$entity.$action.text.twig";
+        $normalTextPath = __DIR__."/twig/$entity.$action.text.twig";
+
+        if(file_exists($customTextPath))
+        {
+            $realTextPath = realpath($customTextPath);
+            $textTwig = $realTextPath ? file_get_contents($realTextPath) : "";
+            $templates["textCustom"] = json_encode($textTwig, JSON_UNESCAPED_SLASHES);
+        }
+        else if(file_exists($normalTextPath))
+        {
+            $realTextPath = realpath($normalTextPath);
+            $textTwig = $realTextPath ? file_get_contents($realTextPath) : "";
+            $templates["textNormal"] = json_encode($textTwig, JSON_UNESCAPED_SLASHES);
+        }
+        else
+        {
+            die("A required template file '$entity.$action.text.twig' could not be found at either '$customTextPath' ".
+                "or '$normalTextPath'!");
+        }
+
+        return $templates;
+    }
+);
+
+$saveTemplatesFunction = new Twig_Function("saveTemplates",
+    function(string $path, string $data): bool
+    {
+        $customPath = __DIR__."/data/twig/$path";
+        $normalPath = __DIR__."/twig/$path";
+
+        if(!file_exists(dirname($customPath)))
+            mkdir(dirname($customPath), 0755, true);
+
+        file_put_contents($customPath, $data);
+
+        return true;
+    }
+);
+
+
+
 $twig->addFunction($localeFunction);
+$twig->addFunction($loadTemplatesFunction);
+$twig->addFunction($saveTemplatesFunction);
 
 // Add the "translate" filter to the Twig environment, otherwise the |translate filter will not function!
 $twig->addFilter(Translator::getTwigFilterTranslate());
+
+
+
