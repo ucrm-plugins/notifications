@@ -1,9 +1,13 @@
 {% extends "common.text.twig" %}
 
 {% block body %}
-{{- "Dear Sales Team,"|translate }}{{ EOL }}
+{{- "Dear Sales Team"|translate }},{{ EOL }}
 {{- EOL -}}
-{{- "The following Client has been added to the UCRM."|translate }}{{ EOL -}}
+{% if client.getIsLead %}
+    {{- "The following Client Lead has been added to the UCRM."|translate }}{{ EOL -}}
+{% else %}
+    {{- "The following Client has been added to the UCRM."|translate }}{{ EOL -}}
+{% endif %}
 {{- EOL -}}
 {# Widget: Client #}
 {% include "_partials/client.text.twig" %}

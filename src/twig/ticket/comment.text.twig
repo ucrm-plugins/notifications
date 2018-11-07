@@ -1,13 +1,17 @@
 {% extends "common.text.twig" %}
 
 {% block body %}
-{% if personalized and user %}
-    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL }}
+{% if not personalized or not user %}
+    {{- "Dear Sales Team"|translate }},{{ EOL }}
 {% else %}
-    {{- "Dear Sales Team,"|translate }}{{ EOL }}
+    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL }}
 {% endif %}
 {{- EOL -}}
-{{- "The following Ticket has received a comment in the UCRM."|translate }}{{ EOL -}}
+{%- if not personalized %}
+    {{- "The following Ticket has received a Comment in the UCRM."|translate }}{{ EOL -}}
+{%- else %}
+    {{- "The following Ticket, assigned to You, has received a Comment in the UCRM."|translate }}{{ EOL -}}
+{% endif %}
 {{- EOL -}}
 {# Widget: Ticket #}
 {% include "_partials/ticket.text.twig" %}

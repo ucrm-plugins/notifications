@@ -17,9 +17,9 @@ final class NotificationsExtension extends \Twig_Extension implements \Twig_Exte
 {
     private $subject = "";
 
-    public function setSubject($value)
+    public function setSubject(string $subject)
     {
-        $this->subject = $value;
+        $this->subject = $subject;
     }
 
     public function getSubject()
@@ -27,6 +27,17 @@ final class NotificationsExtension extends \Twig_Extension implements \Twig_Exte
         return $this->subject;
     }
 
+    private $subjectPersonalized = "";
+
+    public function setSubjectPersonalized(string $subject)
+    {
+        $this->subjectPersonalized = $subject;
+    }
+
+    public function getSubjectPersonalized()
+    {
+        return $this->subjectPersonalized;
+    }
 
 
     public function getName(): string
@@ -54,6 +65,7 @@ final class NotificationsExtension extends \Twig_Extension implements \Twig_Exte
         return [
             //new \Twig_SimpleFunction('getFootHtml', [$this, 'getFootHtml']),
             new \Twig_SimpleFunction("setSubject", [$this, "setSubject"]),
+            new \Twig_SimpleFunction("setSubjectPersonalized", [$this, "setSubjectPersonalized"]),
             new \Twig_SimpleFunction("locale", [$this, "locale"]),
             new \Twig_SimpleFunction("loadTemplates", [$this, "loadTemplates"]),
             new \Twig_SimpleFunction("saveTemplates", [$this, "saveTemplates"]),

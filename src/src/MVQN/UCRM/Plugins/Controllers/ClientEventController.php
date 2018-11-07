@@ -149,7 +149,8 @@ class ClientEventController extends EventController
 
         /** @var NotificationsExtension $notificationsExtension */
         $notificationsExtension = $this->twig->getExtension(NotificationsExtension::class);
-        $subject = $notificationsExtension->getSubject() !== "" ? $notificationsExtension->getSubject() : $results["0"]->subject;
+        $subject = $notificationsExtension->getSubject() !== "" ?
+            $notificationsExtension->getSubject() : $results["0"]->subject;
 
         $results["0"]->subject = Translator::learn($subject);
 

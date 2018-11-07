@@ -1,41 +1,41 @@
 {% extends "common.text.twig" %}
 
 {% block body %}
-{% if personalized and user %}
-    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL -}}
+{% if not personalized or not user %}
+    {{- "Dear Sales Team"|translate }},{{ EOL -}}
 {% else %}
-    {{- "Dear Sales Team,"|translate }}{{ EOL -}}
+    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL -}}
 {% endif %}
 {{- EOL -}}
 {% if activity.getType == "assignment" %}
-    {%- if personalized %}
-        {{- "The following Ticket has been assigned to You in the UCRM."|translate }}{{ EOL -}}
+    {%- if not personalized %}
+        {{- "The following Ticket has been assigned a User in the UCRM."|translate }}{{ EOL -}}
     {%- else %}
-        {{- "The following Ticket has been assigned to a User in the UCRM."|translate }}{{ EOL -}}
+        {{- "The following Ticket has been assigned to You in the UCRM."|translate }}{{ EOL -}}
     {% endif %}
 {% elseif activity.getType == "assignment_client" %}
-    {%- if personalized %}
-        {{- "The following Ticket has been assigned to a Client in the UCRM."|translate }}{{ EOL -}}
+    {%- if not personalized %}
+        {{- "The following Ticket has been assigned a Client in the UCRM."|translate }}{{ EOL -}}
     {%- else %}
-        {{- "The following Ticket has been assigned to a Client in the UCRM."|translate }}{{ EOL -}}
+        {{- "The following Ticket, assigned to You, has been assigned a Client in the UCRM."|translate }}{{ EOL -}}
     {% endif %}
 {% elseif activity.getType == "assignment_job" %}
-    {%- if personalized %}
-        {{- "The following Ticket has been assigned to a Job in the UCRM."|translate }}{{ EOL -}}
+    {%- if not personalized %}
+        {{- "The following Ticket has been assigned a Job in the UCRM."|translate }}{{ EOL -}}
     {%- else %}
-        {{- "The following Ticket has been assigned to a Job in the UCRM."|translate }}{{ EOL -}}
+        {{- "The following Ticket, assigned to You, has been assigned a Job in the UCRM."|translate }}{{ EOL -}}
     {% endif %}
 {% elseif activity.getType == "status_change" %}
-    {%- if personalized %}
-        {{- "The following Ticket has recived a Status Change in the UCRM."|translate }}{{ EOL -}}
+    {%- if not personalized %}
+        {{- "The following Ticket has received a Status Change in the UCRM."|translate }}{{ EOL -}}
     {%- else %}
-        {{- "The following Ticket has recived a Status Change in the UCRM."|translate }}{{ EOL -}}
+        {{- "The following Ticket, assigned to You, has received a Status Change in the UCRM."|translate }}{{ EOL -}}
     {% endif %}
 {% else %}
-    {%- if personalized %}
+    {%- if not personalized %}
         {{- "The following Ticket has been edited in the UCRM."|translate }}{{ EOL -}}
     {%- else %}
-        {{- "The following Ticket has been edited in the UCRM."|translate }}{{ EOL -}}
+        {{- "The following Ticket, assigned to You, has been edited in the UCRM."|translate }}{{ EOL -}}
     {% endif %}
 {% endif %}
 {{- EOL -}}

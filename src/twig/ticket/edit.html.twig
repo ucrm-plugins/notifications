@@ -5,11 +5,11 @@
 {#                                                                                                                    #}
 {# The lines of text for each section below can be edited to suit your individual needs.                              #}
 {#                                                                                                                    #}
-{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
-{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
-{#                                                                                                                    #}
-{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a manually entered            #}
 {#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
 {#                                                                                                                    #}
 {#====================================================================================================================#}
 
@@ -17,40 +17,45 @@
     {# Email Subject #}
     {% switch activity.getType %}
         {% case "assignment" %}
-            {{ setSubject((personalized
-                ? "A Ticket has been Assigned to You"
-                : "Ticket Assigned"
-            )|translate) }}
+            {% if not personalized %}
+                {{ setSubject("Ticket Assigned"|translate) }}
+            {% else %}
+                {{ setSubjectPersonalized("A Ticket has been Assigned to You"|translate) }}
+            {% endif %}
         {% case "assignment_client" %}
-            {{ setSubject((personalized
-                ? "A Ticket Assigned to You has been Assigned a Client"
-                : "Ticket Assigned a Client"
-            )|translate) }}
+            {% if not personalized %}
+                {{ setSubject("Ticket Assigned a Client"|translate) }}
+            {% else %}
+                {{ setSubjectPersonalized("A Ticket Assigned to You has been Assigned a Client"|translate) }}
+            {% endif %}
         {% case "assignment_job" %}
-            {{ setSubject((personalized
-                ? "A Ticket Assigned to You has been Assigned a Job"
-                : "Ticket Assigned a Job"
-            )|translate) }}
+            {% if not personalized %}
+                {{ setSubject("Ticket Assigned a Job"|translate) }}
+            {% else %}
+                {{ setSubjectPersonalized("A Ticket Assigned to You has been Assigned a Job"|translate) }}
+            {% endif %}
         {% case "status_change" %}
-            {{ setSubject((personalized
-                ? "A Ticket Assigned to You has recived a Status Change"
-                : "Ticket Status Changed"
-            )|translate) }}
+            {% if not personalized %}
+                {{ setSubject("Ticket Status Changed"|translate) }}
+            {% else %}
+                {{ setSubjectPersonalized("A Ticket Assigned to You has recived a Status Change"|translate) }}
+            {% endif %}
         {% default %}
-            {{ setSubject((personalized
-                ? "A Ticket Assigned to You has been Edited"
-                : "Ticket Edited"
-            )|translate) }}
+            {% if not personalized %}
+                {{ setSubject("Ticket Edited"|translate) }}
+            {% else %}
+                {{ setSubjectPersonalized("A Ticket Assigned to You has been Edited"|translate) }}
+            {% endif %}
     {% endswitch %}
 
     {# Email Body #}
     <div>
         {# Salutation #}
         <p>
-            {% if personalized and user %}
-                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
+            {% if not personalized or not user %}
+                {{ "Dear Sales Team"|translate }},
             {% else %}
-                {{ "Dear Sales Team,"|translate }}
+                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
             {% endif %}
         </p>
 
@@ -58,29 +63,29 @@
         <p>
             {% switch activity.getType %}
                 {% case "assignment" %}         {# Ticket User Assignment #}
-                    {{ (personalized
-                        ? "The following Ticket has been assigned to You in the UCRM."
-                        : "The following Ticket has been assigned to a User in the UCRM."
+                    {{ (not personalized
+                        ? "The following Ticket has been assigned to a User in the UCRM."
+                        : "The following Ticket has been assigned to You in the UCRM."
                     )|translate }}
                 {% case "assignment_client" %}  {# Ticket Client Assignment #}
-                    {{ (personalized
-                        ? "The following Ticket assigned to You has been assigned a Client in the UCRM."
-                        : "The following Ticket has been assigned a Client in the UCRM."
+                    {{ (not personalized
+                        ? "The following Ticket has been assigned a Client in the UCRM."
+                        : "The following Ticket, assigned to You, has been assigned a Client in the UCRM."
                     )|translate }}
                 {% case "assignment_job" %}     {# Ticket Job Assignment #}
-                    {{ (personalized
-                        ? "The following Ticket assigned to You has been assigned a Job in the UCRM."
-                        : "The following Ticket has been assigned a Job in the UCRM."
+                    {{ (not personalized
+                        ? "The following Ticket has been assigned a Job in the UCRM."
+                        : "The following Ticket, assigned to You, has been assigned a Job in the UCRM."
                     )|translate }}
                 {% case "status_change" %}      {# Ticket Status Change #}
-                    {{ (personalized
-                        ? "The following Ticket assigned to You has received a Status Change in the UCRM."
-                        : "The following Ticket has received a Status Change in the UCRM."
+                    {{ (not personalized
+                        ? "The following Ticket has received a Status Change in the UCRM."
+                        : "The following Ticket, assigned to You, has received a Status Change in the UCRM."
                     )|translate }}
                 {% default %}                   {# Any other type of Ticket Edit #}
-                    {{ (personalized
-                        ? "The following Ticket assigned to You has been edited in the UCRM."
-                        : "The following Ticket has been edited in the UCRM."
+                    {{ (not personalized
+                        ? "The following Ticket has been edited in the UCRM."
+                        : "The following Ticket, assigned to You, has been edited in the UCRM."
                     )|translate }}
             {% endswitch %}
         </p>

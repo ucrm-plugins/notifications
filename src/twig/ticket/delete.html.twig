@@ -18,16 +18,16 @@
 
 {% block body %}
     {# Email Subject #}
-    {% if personalized %}
-        {{ setSubject("A Ticket of Yours was Deleted") }}
+    {% if not personalized %}
+        {{ setSubject("Ticket Deleted"|translate) }}
     {% else %}
-        {{ setSubject("Ticket Deleted") }}
+        {{ setSubjectPersonalized("A Ticket of Yours has been Deleted"|translate) }}
     {% endif %}
 
     <div>
         {# Salutation #}
         <p>
-            {{ "Dear Sales Team,"|translate }}
+            {{ "Dear Sales Team"|translate }},
         </p>
 
         {# Content #}

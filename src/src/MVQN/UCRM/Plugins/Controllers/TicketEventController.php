@@ -13,6 +13,7 @@ use MVQN\REST\UCRM\Endpoints\TicketActivity;
 use MVQN\REST\UCRM\Endpoints\TicketComment;
 use MVQN\REST\UCRM\Endpoints\TicketGroup;
 use MVQN\REST\UCRM\Endpoints\User;
+use MVQN\Twig\NotificationsExtension;
 use MVQN\UCRM\Plugins\Config;
 use MVQN\UCRM\Plugins\Settings;
 
@@ -230,8 +231,20 @@ class TicketEventController extends EventController
                 break;
         }
 
-        $results["0"]->subject = Translator::learn($results["0"]->subject);
-        $results["1"]->subject = Translator::learn($results["1"]->subject);
+        /** @var NotificationsExtension $notificationsExtension */
+        $notificationsExtension = $this->twig->getExtension(NotificationsExtension::class);
+
+        $subject = $notificationsExtension->getSubject() !== "" ?
+            $notificationsExtension->getSubject() : $results["0"]->subject;
+
+        $subjectPersonalized = $notificationsExtension->getSubjectPersonalized() !== "" ?
+            $notificationsExtension->getSubjectPersonalized() : $results["1"]->subject;
+
+        $results["0"]->subject = Translator::learn($subject);
+        $results["1"]->subject = Translator::learn($subjectPersonalized);
+
+        //$results["0"]->subject = Translator::learn($results["0"]->subject);
+        //$results["1"]->subject = Translator::learn($results["1"]->subject);
 
         $results["0"]->debug[] = "Subject\n".json_encode($results["0"]->subject, JSON_PRETTY_PRINT)."\n";
         $results["1"]->debug[] = "Subject\n".json_encode($results["1"]->subject, JSON_PRETTY_PRINT)."\n";

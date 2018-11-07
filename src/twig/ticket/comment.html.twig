@@ -1,42 +1,43 @@
 {% extends "common.html.twig" %}
 
 {#====================================================================================================================#}
-{# TICKET - COMMENT                                                                                                   #}
+{# TICKET - ADD                                                                                                       #}
 {#                                                                                                                    #}
 {# The lines of text for each section below can be edited to suit your individual needs.                              #}
 {#                                                                                                                    #}
-{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
-{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
-{#                                                                                                                    #}
-{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a manually entered            #}
 {#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
 {#                                                                                                                    #}
 {#====================================================================================================================#}
 
 {% block body %}
     {# Email Subject #}
-    {% if personalized and user %}
-        {{ setSubject("A Ticket of Yours Received a Comment") }}
+    {% if not personalized %}
+        {{ setSubject("Ticket Commented"|translate) }}
     {% else %}
-        {{ setSubject("Ticket Commented") }}
+        {{ setSubjectPersonalized("A Ticket of Yours Received a Comment"|translate) }}
     {% endif %}
 
     <div>
         {# Salutation #}
         <p>
-            {% if personalized and user %}
-                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
+            {% if not personalized or not user %}
+                {{ "Dear Sales Team"|translate }},
             {% else %}
-                {{ "Dear Sales Team,"|translate }}
+                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
+
             {% endif %}
         </p>
 
         {# Content #}
         <p>
-            {% if personalized %}
+            {% if not personalized %}
                 {{ "The following Ticket has received a comment in the UCRM."|translate }}
             {% else %}
-                {{ "The following Ticket has received a comment in the UCRM."|translate }}
+                {{ "The following Ticket, assigned to You, has received a comment in the UCRM."|translate }}
             {% endif %}
         </p>
 

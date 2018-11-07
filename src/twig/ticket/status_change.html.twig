@@ -15,28 +15,28 @@
 
 {% block body %}
     {# Email Subject #}
-    {% if personalized %}
-        {{ setSubject("A Ticket of Yours has it's Status Changed") }}
+    {% if not personalized %}
+        {{ setSubject("Ticket Status Changed"|translate) }}
     {% else %}
-        {{ setSubject("Ticket Status Changed") }}
+        {{ setSubjectPersonalized("A Ticket of Yours had it's Status Changed"|translate) }}
     {% endif %}
 
     <div>
         {# Salutation #}
         <p>
-            {% if personalized and user %}
-                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
+            {% if not personalized or not user %}
+                {{ "Dear Sales Team"|translate }},
             {% else %}
-                {{ "Dear Sales Team,"|translate }}
+                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
             {% endif %}
         </p>
 
         {# Content #}
         <p>
-            {% if personalized %}
-                {{ "The following Ticket received a status change in the UCRM."|translate }}
+            {% if not personalized %}
+                {{ "The following Ticket received a Status Change in the UCRM."|translate }}
             {% else %}
-                {{ "The following Ticket received a status change in the UCRM."|translate }}
+                {{ "The following Ticket, assigned to You, received a Status Change in the UCRM."|translate }}
             {% endif %}
         </p>
 
