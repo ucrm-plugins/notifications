@@ -375,8 +375,16 @@ use MVQN\UCRM\Plugins\Sessions\SymfonySession;
                     $mail->addAddress($email);
 
                 $mail->Subject = $result->subject;
-                $mail->Body = $result->html;
-                $mail->AltBody = $result->text;
+
+                if(Settings::getSmtpUseHTML())
+                {
+                    $mail->Body = $result->html;
+                    $mail->AltBody = $result->text;
+                }
+                else
+                {
+                    $mail->Body = $result->text;
+                }
 
                 // Finally, attempt to send the message!
                 $mail->send();

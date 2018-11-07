@@ -7,7 +7,9 @@ use MVQN\Common\HTML;
 use MVQN\Localization\Translator;
 use MVQN\REST\UCRM\Endpoints\Client;
 use MVQN\REST\UCRM\Endpoints\ClientContact;
+use MVQN\Twig\NotificationsExtension;
 use MVQN\UCRM\Plugins\Config;
+use MVQN\UCRM\Plugins\Extensions\SubjectExtension;
 use MVQN\UCRM\Plugins\Plugin;
 use MVQN\UCRM\Plugins\Settings;
 
@@ -117,6 +119,9 @@ class ClientEventController extends EventController
         // SUBJECT
         // =============================================================================================================
 
+
+
+
         // Set the appropriate subject line for this notification.
         switch ($action)
         {
@@ -140,7 +145,13 @@ class ClientEventController extends EventController
                 break;
         }
 
-        $results["0"]->subject = Translator::learn($results["0"]->subject);
+        //$results["0"]->subject = Translator::learn($results["0"]->subject);
+
+        /** @var NotificationsExtension $notificationsExtension */
+        $notificationsExtension = $this->twig->getExtension(NotificationsExtension::class);
+        $subject = $notificationsExtension->getSubject() !== "" ? $notificationsExtension->getSubject() : $results["0"]->subject;
+
+        $results["0"]->subject = Translator::learn($subject);
 
         $results["0"]->debug[] = "Subject\n".json_encode($results["0"]->subject, JSON_PRETTY_PRINT)."\n";
 

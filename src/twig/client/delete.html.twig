@@ -1,6 +1,23 @@
 {% extends "common.html.twig" %}
 
+{#====================================================================================================================#}
+{# CLIENT - DELETE                                                                                                    #}
+{#                                                                                                                    #}
+{# NOTE: Currently, no personalization is handled by the Client Template system.                                      #}
+{#                                                                                                                    #}
+{# NOTE: The Webhook event is only triggered after the entity is deleted, so there is not much useful information we  #}
+{# can display here regarding the actual entity that was deleted.                                                     #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
+
 {% block body %}
+    {# Email Subject #}
+    {% if client.getIsLead %}
+        {{ setSubject("Client Lead Deleted"|translate) }}
+    {% else %}
+        {{ setSubject("Client Deleted"|translate) }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>

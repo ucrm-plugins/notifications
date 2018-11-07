@@ -1,8 +1,8 @@
-{% set EOL = "\r\n" %}
-{% set TAB = "    " %}
-{% set PAD = "% -20.20s" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{% extends "common.text.twig" %}
+
+{% block body %}
 {{- "Dear Sales Team,"|translate }}{{ EOL }}
 {{- EOL -}}
 {{- "The " ~ entity|capitalize ~ " with ID: " ~ entityId ~ " has been deleted in the UCRM."|translate }}{{ EOL -}}
 {{- EOL -}}
+{% endblock %}

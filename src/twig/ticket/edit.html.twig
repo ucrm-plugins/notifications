@@ -1,7 +1,49 @@
 {% extends "common.html.twig" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+
+{#====================================================================================================================#}
+{# TICKET - EDIT                                                                                                      #}
+{#                                                                                                                    #}
+{# The lines of text for each section below can be edited to suit your individual needs.                              #}
+{#                                                                                                                    #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
 
 {% block body %}
+    {# Email Subject #}
+    {% switch activity.getType %}
+        {% case "assignment" %}
+            {{ setSubject((personalized
+                ? "A Ticket has been Assigned to You"
+                : "Ticket Assigned"
+            )|translate) }}
+        {% case "assignment_client" %}
+            {{ setSubject((personalized
+                ? "A Ticket Assigned to You has been Assigned a Client"
+                : "Ticket Assigned a Client"
+            )|translate) }}
+        {% case "assignment_job" %}
+            {{ setSubject((personalized
+                ? "A Ticket Assigned to You has been Assigned a Job"
+                : "Ticket Assigned a Job"
+            )|translate) }}
+        {% case "status_change" %}
+            {{ setSubject((personalized
+                ? "A Ticket Assigned to You has recived a Status Change"
+                : "Ticket Status Changed"
+            )|translate) }}
+        {% default %}
+            {{ setSubject((personalized
+                ? "A Ticket Assigned to You has been Edited"
+                : "Ticket Edited"
+            )|translate) }}
+    {% endswitch %}
+
+    {# Email Body #}
     <div>
         {# Salutation #}
         <p>
@@ -14,46 +56,42 @@
 
         {# Content #}
         <p>
-            {% if activity.getType == "assignment" %}
-                {% if personalized %}
-                    {{ "The following Ticket has been assigned to You in the UCRM."|translate }}
-                {% else %}
-                    {{ "The following Ticket has been assigned to a User in the UCRM."|translate }}
-                {% endif %}
-            {% elseif activity.getType == "assignment_client" %}
-                {% if personalized %}
-                    {{ "The following Ticket has been assigned to a Client in the UCRM."|translate }}
-                {% else %}
-                    {{ "The following Ticket has been assigned to a Client in the UCRM."|translate }}
-                {% endif %}
-            {% elseif activity.getType == "assignment_job" %}
-                {% if personalized %}
-                    {{ "The following Ticket has been assigned to a Job in the UCRM."|translate }}
-                {% else %}
-                    {{ "The following Ticket has been assigned to a Job in the UCRM."|translate }}
-                {% endif %}
-            {% elseif activity.getType == "status_change" %}
-                {% if personalized %}
-                    {{ "The following Ticket has recived a Status Change in the UCRM."|translate }}
-                {% else %}
-                    {{ "The following Ticket has recived a Status Change in the UCRM."|translate }}
-                {% endif %}
-            {% else %}
-                {% if personalized %}
-                    {{ "The following Ticket has been edited in the UCRM."|translate }}
-                {% else %}
-                    {{ "The following Ticket has been edited in the UCRM."|translate }}
-                {% endif %}
-            {% endif %}
+            {% switch activity.getType %}
+                {% case "assignment" %}         {# Ticket User Assignment #}
+                    {{ (personalized
+                        ? "The following Ticket has been assigned to You in the UCRM."
+                        : "The following Ticket has been assigned to a User in the UCRM."
+                    )|translate }}
+                {% case "assignment_client" %}  {# Ticket Client Assignment #}
+                    {{ (personalized
+                        ? "The following Ticket assigned to You has been assigned a Client in the UCRM."
+                        : "The following Ticket has been assigned a Client in the UCRM."
+                    )|translate }}
+                {% case "assignment_job" %}     {# Ticket Job Assignment #}
+                    {{ (personalized
+                        ? "The following Ticket assigned to You has been assigned a Job in the UCRM."
+                        : "The following Ticket has been assigned a Job in the UCRM."
+                    )|translate }}
+                {% case "status_change" %}      {# Ticket Status Change #}
+                    {{ (personalized
+                        ? "The following Ticket assigned to You has received a Status Change in the UCRM."
+                        : "The following Ticket has received a Status Change in the UCRM."
+                    )|translate }}
+                {% default %}                   {# Any other type of Ticket Edit #}
+                    {{ (personalized
+                        ? "The following Ticket assigned to You has been edited in the UCRM."
+                        : "The following Ticket has been edited in the UCRM."
+                    )|translate }}
+            {% endswitch %}
         </p>
 
-        {# Ticket #}
+        {# Ticket Widget #}
         {% include "_partials/ticket.html.twig" %}
 
-        {# Client #}
+        {# Client Widget #}
         {% include "_partials/client.html.twig" %}
 
-        {# Map #}
+        {# Map Widget #}
         {% include "_partials/map.html.twig" %}
     </div>
 {% endblock %}

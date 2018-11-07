@@ -1,6 +1,20 @@
 {% extends "common.html.twig" %}
 
+{#====================================================================================================================#}
+{# CLIENT - ADD                                                                                                       #}
+{#                                                                                                                    #}
+{# NOTE: Currently, no personalization is handled by the Client Template system.                                      #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
+
 {% block body %}
+    {# Edit the Email Subject Line here, as desired... #}
+    {% if client.getIsLead %}
+        {{ setSubject("Client Lead Invited"|translate) }}
+    {% else %}
+        {{ setSubject("Client Invited"|translate) }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>
@@ -16,10 +30,10 @@
             {% endif %}
         </p>
 
-        {# Client #}
+        {# Widget: Client #}
         {% include "_partials/client.html.twig" %}
 
-        {# Map #}
+        {# Widget: Map #}
         {% include "_partials/map.html.twig" %}
     </div>
 {% endblock %}

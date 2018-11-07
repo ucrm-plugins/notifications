@@ -1,6 +1,20 @@
 {% extends "common.html.twig" %}
 
+{#====================================================================================================================#}
+{# CLIENT - ADD                                                                                                       #}
+{#                                                                                                                    #}
+{# NOTE: Currently, no personalization is handled by the Client Template system.                                      #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
+
 {% block body %}
+    {# Email Subject #}
+    {% if client.getIsLead %}
+        {{ setSubject("Client Lead Edited"|translate) }}
+    {% else %}
+        {{ setSubject("Client Edited"|translate) }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>
@@ -16,10 +30,10 @@
             {% endif %}
         </p>
 
-        {# Client #}
+        {# Widget: Client #}
         {% include "_partials/client.html.twig" %}
 
-        {# Map #}
+        {# Widget: Map #}
         {% include "_partials/map.html.twig" %}
     </div>
 {% endblock %}

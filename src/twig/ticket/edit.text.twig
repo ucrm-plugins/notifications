@@ -1,7 +1,6 @@
-{% set EOL = "\r\n" %}
-{% set TAB = "    " %}
-{% set PAD = "% -20.20s" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{% extends "common.text.twig" %}
+
+{% block body %}
 {% if personalized and user %}
     {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL -}}
 {% else %}
@@ -40,7 +39,8 @@
     {% endif %}
 {% endif %}
 {{- EOL -}}
-{# Ticket #}
+{# Widget: Ticket #}
 {% include "_partials/ticket.text.twig" %}
-{# Client #}
+{# Widget: Client #}
 {% include "_partials/client.text.twig" %}
+{% endblock %}

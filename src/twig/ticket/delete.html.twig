@@ -1,6 +1,29 @@
 {% extends "common.html.twig" %}
 
+{#====================================================================================================================#}
+{# TICKET - DELETE                                                                                                    #}
+{#                                                                                                                    #}
+{# The lines of text for each section below can be edited to suit your individual needs.                              #}
+{#                                                                                                                    #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{# NOTE: The Webhook event is only triggered after the entity is deleted, so there is not much useful information we  #}
+{# can display here regarding the actual entity that was deleted.                                                     #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
+
 {% block body %}
+    {# Email Subject #}
+    {% if personalized %}
+        {{ setSubject("A Ticket of Yours was Deleted") }}
+    {% else %}
+        {{ setSubject("Ticket Deleted") }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>

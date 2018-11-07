@@ -174,28 +174,51 @@
 
     <form id="htmlForm" method="POST" action="?template={{ entity }}.{{ action }}&save">
         {# HTML Editor #}
-        <div class="d-sm-flex justify-content-between mt-3 mb-2">
-            <h5 class="d-sm-inline-block m-0 mb-1 mb-sm-0 align-self-center">HTML</h5>
-            <div id="htmlResetButton" class="btn btn-outline-secondary btn-sm col-sm-3 col-md-2 {{ htmlCustom == htmlNormal ? "disabled" : "" }}">Reset to Default</div>
+        <div class="d-flex justify-content-between mt-3 mb-2">
+            <h5 class="m-0 mb-1 mb-sm-0 align-self-center">HTML</h5>
+            <div class="text-right">
+                <div class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#htmlHelpCollapse">Help</div>
+                <div id="htmlResetButton" class="btn btn-outline-primary btn-sm {{ htmlCustom == htmlNormal ? "disabled" : "" }}">Reset to Default</div>
+            </div>
+
         </div>
+
+        <div id="htmlHelpCollapse" class="collapse mb-2">
+            {# TODO: Create help content! #}
+            COMING SOON!
+        </div>
+
         <div id="htmlEditor" class="editor">{{ htmlCustom }}</div>
         <textarea id="htmlContent" name="html" hidden></textarea>
         <pre id="htmlNormal" hidden>{{ htmlNormal }}</pre>
 
 
         {# TEXT Editor #}
-        <div class="d-sm-flex justify-content-between mt-3 mb-2">
-            <h5 class="d-sm-inline-block m-0 mb-1 mb-sm-0 align-self-center">TEXT</h5>
-            <div id="textResetButton" class="btn btn-outline-secondary btn-sm col-sm-3 col-md-2 disabled">Reset to Default</div>
+        <div class="d-flex justify-content-between mt-3 mb-2">
+            <h5 class="m-0 mb-1 mb-sm-0 align-self-center">TEXT</h5>
+            <div class="text-right">
+                <div class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#textHelpCollapse">Help</div>
+                <div id="textResetButton" class="btn btn-outline-primary btn-sm {{ textCustom == textNormal ? "disabled" : "" }}">Reset to Default</div>
+            </div>
         </div>
+
+        <div id="textHelpCollapse" class="collapse mb-2">
+            {# TODO: Create help content! #}
+            COMING SOON!
+        </div>
+
         <div id="textEditor" class="editor">{{ textCustom }}</div>
         <textarea id="textContent" name="text" hidden></textarea>
         <pre id="textNormal" hidden>{{ textNormal }}</pre>
 
         <div class="d-flex justify-content-end mt-3">
-            <div id="saveButton" class="btn btn-outline-primary btn-sm col-sm-3 col-md-2 disabled">Save</div>
+            <div id="saveButton" class="btn btn-primary btn-sm col-sm-3 col-md-2 disabled">Save</div>
         </div>
     </form>
+
+
+
+
 
 </div>
 
@@ -329,7 +352,26 @@
         $("#htmlForm").submit();
     });
 
-
+    /*
+    $(window).bind('keydown', function(event) {
+        if (event.ctrlKey || event.metaKey) {
+            switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 's':
+                    event.preventDefault();
+                    alert('ctrl-s');
+                    break;
+                case 'f':
+                    event.preventDefault();
+                    alert('ctrl-f');
+                    break;
+                case 'g':
+                    event.preventDefault();
+                    alert('ctrl-g');
+                    break;
+            }
+        }
+    });
+    */
 
     // Ready
     $(function()

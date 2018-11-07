@@ -1,7 +1,26 @@
 {% extends "common.html.twig" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+
+{#====================================================================================================================#}
+{# TICKET - STATUS CHANGE                                                                                             #}
+{#                                                                                                                    #}
+{# The lines of text for each section below can be edited to suit your individual needs.                              #}
+{#                                                                                                                    #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
 
 {% block body %}
+    {# Email Subject #}
+    {% if personalized %}
+        {{ setSubject("A Ticket of Yours has it's Status Changed") }}
+    {% else %}
+        {{ setSubject("Ticket Status Changed") }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>

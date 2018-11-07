@@ -1,7 +1,26 @@
 {% extends "common.html.twig" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+
+{#====================================================================================================================#}
+{# TICKET - ADD                                                                                                       #}
+{#                                                                                                                    #}
+{# The lines of text for each section below can be edited to suit your individual needs.                              #}
+{#                                                                                                                    #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %TICKET_ASSIGNED_USER%).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
 
 {% block body %}
+    {# Email Subject #}
+    {% if personalized %}
+        {{ setSubject("A Ticket was Added for You") }}
+    {% else %}
+        {{ setSubject("Ticket Added") }}
+    {% endif %}
+
     <div>
         {# Salutation #}
         <p>
@@ -15,19 +34,19 @@
         {# Content #}
         <p>
             {% if personalized %}
-                {{ "The following Ticket has been created in the UCRM."|translate }}
+                {{ "The following Ticket has been created and assigned to You in the UCRM."|translate }}
             {% else %}
                 {{ "The following Ticket has been created in the UCRM."|translate }}
             {% endif %}
         </p>
 
-        {# Ticket #}
+        {# Widget: Ticket #}
         {% include "_partials/ticket.html.twig" %}
 
-        {# Client #}
+        {# Widget: Client #}
         {% include "_partials/client.html.twig" %}
 
-        {# Map #}
+        {# Widget: Map #}
         {% include "_partials/map.html.twig" %}
     </div>
 {% endblock %}

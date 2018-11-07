@@ -1,10 +1,10 @@
-{% set EOL = "\r\n" %}
-{% set TAB = "    " %}
-{% set PAD = "% -20.20s" %}
-{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{% extends "common.text.twig" %}
+
+{% block body %}
 {{- "Dear Sales Team,"|translate }}{{ EOL }}
 {{- EOL -}}
 {{- "The following Client has been edited in the UCRM."|translate }}{{ EOL -}}
 {{- EOL -}}
-{# Client #}
+{# Widget: Client #}
 {% include "_partials/client.text.twig" %}
+{% endblock %}
