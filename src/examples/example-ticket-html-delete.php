@@ -3,13 +3,13 @@ declare(strict_types=1);
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../bootstrap.php";
 
-use MVQN\UCRM\Plugins\Config;
-use MVQN\UCRM\Plugins\Settings;
+use UCRM\Common\Config;
+use UCRM\Plugins\Notifications\Settings;
 
-use MVQN\REST\UCRM\Endpoints\Ticket;
-use MVQN\REST\UCRM\Endpoints\User;
-use MVQN\REST\UCRM\Endpoints\Client;
-use MVQN\REST\UCRM\Endpoints\ClientContact;
+use UCRM\REST\Endpoints\Ticket;
+use UCRM\REST\Endpoints\User;
+use UCRM\REST\Endpoints\Client;
+use UCRM\REST\Endpoints\ClientContact;
 
 /** @var Ticket $ticket */
 $ticket = Ticket::getById(9);

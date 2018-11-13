@@ -18,6 +18,11 @@ h5
     font-size: 1.5rem;
 }
 
+a {
+    /* Does not work in all Email clients! */
+    text-decoration: none;
+}
+
 .section-container
 {
 
@@ -25,7 +30,7 @@ h5
 
 .field-group
 {
-    margin: 0.5rem 1rem;
+    margin: 1rem;
 }
 
 .field-label
@@ -37,8 +42,19 @@ h5
 
 .field-value
 {
-
+    margin: 0.25rem 0;
 }
+
+.field-item
+{
+    border: 1px solid lightblue;
+    background-color: lightcyan;
+    border-radius: 2px;
+    padding: 4px 8px;
+    margin: 0.25rem 0;
+    max-width: 3.5in;
+}
+
 
 .contact
 {

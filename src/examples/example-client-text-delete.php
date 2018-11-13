@@ -3,11 +3,11 @@ declare(strict_types=1);
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../bootstrap.php";
 
-use MVQN\UCRM\Plugins\Config;
-use MVQN\UCRM\Plugins\Settings;
+use UCRM\Common\Config;
+use UCRM\Plugins\Notifications\Settings;
 
-use MVQN\REST\UCRM\Endpoints\Client;
-use MVQN\REST\UCRM\Endpoints\ClientContact;
+use UCRM\REST\Endpoints\Client;
+use UCRM\REST\Endpoints\ClientContact;
 
 /** @var Client $client Get the actual Client from the UCRM. */
 $client = Client::getById(1);

@@ -1,0 +1,28 @@
+{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+{% if job %}
+{{ "Job"|translate|upper }}{{ EOL -}}
+{# Job Date #}
+{{ TAB }}{{ PAD|format("Date"|translate) }}: {{ job.getDate|date(datetimeFormat) }}{{ EOL -}}
+{# Job Duration #}
+{{ TAB }}{{ PAD|format("Duration"|translate) }}: {{ job.getDuration ~ " " ~ "minutes"|translate }}{{ EOL -}}
+{# Job Description #}
+{{ TAB }}{{ PAD|format("Description"|translate) }}: {{ job.getDescription }}{{ EOL -}}
+{# Job Status #}
+{{ TAB }}{{ PAD|format("Status"|translate) }}{{ ": " }}
+{%- if job.getStatus == 0 %}{{ "Open"|translate }}{% endif %}
+{%- if job.getStatus == 1 %}{{ "In Progress"|translate }}{% endif %}
+{%- if job.getStatus == 2 %}{{ "Closed"|translate }}{% endif %}
+{{ EOL -}}
+{# Job Assigned User #}
+{% if user %}
+    {{- TAB }}{{ PAD|format("Assigned User"|translate) }}: {{ user.getFirstName }} {{ user.getLastName }}{{ EOL -}}
+{% endif %}
+{# Job Address #}
+{{ TAB }}{{ PAD|format("Address"|translate) }}: {{ job.getAddress }}{{ EOL -}}
+{# Job GPS #}
+{{ TAB }}{{ PAD|format("GPS"|translate) }}: {{ job.getGpsLat }}, {{ job.getGpsLon }}{{ EOL -}}
+{# Job Link #}
+{% set _link = url ?? "http://localhost/" ~ "scheduling/job/" ~ job.getId %}
+{{ TAB }}{{ PAD|format("Job Link"|translate) }}: {{ _link }}{{ EOL -}}
+{{ EOL -}}
+{% endif %}

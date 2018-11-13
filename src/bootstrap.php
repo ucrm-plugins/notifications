@@ -6,12 +6,10 @@ use MVQN\Localization\Translator;
 use MVQN\Localization\Exceptions\TranslatorException;
 use MVQN\REST\RestClient;
 
-use MVQN\UCRM\Plugins\Plugin;
-use MVQN\UCRM\Plugins\Config;
-use MVQN\UCRM\Plugins\Settings;
-
-use MVQN\Twig\NotificationsExtension;
-use MVQN\UCRM\Plugins\Extensions\SubjectExtension;
+use UCRM\Common\Plugin;
+use UCRM\Common\Config;
+use UCRM\Plugins\Notifications\Settings;
+use UCRM\Twig\NotificationsExtension;
 
 /**
  * bootstrap.php
@@ -29,7 +27,7 @@ if(file_exists(__DIR__."/../.env"))
 Plugin::initialize(__DIR__);
 
 // Regenerate the Settings class, in case anything has changed in the manifest.json file.
-Plugin::createSettings();
+Plugin::createSettings("UCRM\\Plugins\\Notifications");
 
 // Generate the REST API URL.
 $restUrl = (getenv("UCRM_REST_URL_DEV") ?: "http://localhost")."/api/v1.0";
@@ -62,8 +60,14 @@ catch (TranslatorException $e)
 $twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__ . "/twig/"),
 [
     //"cache" => __DIR__."/twig/.cache/", // This will speed things up a bit, but will break the editable templates!
+    "debug" => true,
 ]);
 
+/** @var Twig_Extension_Core $core */
+$core = $twig->getExtension("Twig_Extension_Core");
+$core->setTimezone(Config::getTimezone());
+
+$twig->addExtension(new Twig_Extension_Debug());
 $twig->addExtension(new NotificationsExtension());
 
 // Add the "translate" filter to the Twig environment, otherwise the |translate filter will not function!

@@ -1,0 +1,100 @@
+{% set datetimeFormat = "m/d/Y @ H:i:s" %}
+
+{% if job %}
+    <h5>{{ "Job"|translate }}</h5>
+    <div class="section-container">
+        <div class="field-group">
+            <div class="field-label">{{ "Date"|translate }}</div>
+            <div class="field-value">
+                {{ job.getDate|date(datetimeFormat) }}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Duration"|translate }}</div>
+            <div class="field-value">
+                {% if job.getDuration > 0 %}
+                    {{ job.getDuration ~ " " ~ "minutes"|translate }}
+                {% else %}
+                    {{ "-" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Description"|translate }}</div>
+            <div class="field-value">
+                {{ job.getDescription|default("-") }}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Status"|translate }}</div>
+            <div class="field-value">
+                {% if job.getStatus == 0 %}{{ "Open"|translate }}{% endif %}
+                {% if job.getStatus == 1 %}{{ "In Progress"|translate }}{% endif %}
+                {% if job.getStatus == 2 %}{{ "Closed"|translate }}{% endif %}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Assigned User"|translate }}</div>
+            <div class="field-value">
+                {% if user %}
+                    {{ user.getFirstName }} {{ user.getLastName }}
+                    &lt;<a href="mailto:{{ user.getEmail }}">{{ user.getEmail }}</a>&gt;
+                {% else %}
+                    {{ "-" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Address"|translate }}</div>
+            <div class="field-value">
+                {{ job.getAddress|default("-") }}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "GPS"|translate }}</div>
+            <div class="field-value">
+                {% if job.getGpsLat and job.getGpsLon %}
+                <a href="https://www.google.com/maps/place/{{ job.getGpsLat }},{{ job.getGpsLon }}" target="_blank">
+                    {{ job.getGpsLat }},{{ job.getGpsLon }}
+                </a>
+                {% else %}
+                    {{ "-" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Job Link"|translate }}</div>
+            <div class="field-value">
+                {# URLs do not seem to be translated! #}
+                {% set _link = (url ?? "http://localhost/") ~ "scheduling/job/" ~ job.getId %}
+                <strong><a href="{{ _link }}" target="_blank">{{ _link }}</a></strong>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">{{ "Attachments"|translate }}</div>
+            <div class="field-value">
+                {% for attachment in attachments %}
+                    <div class="field-item">
+                        {% set _link = (url ?? "http://localhost/") ~ "scheduling/job/attachment/" ~ attachment.getId %}
+                        <a href="{{ _link }}" target="_blank">{{ attachment.getFilename }}</a>
+                    </div>
+                {% endfor %}
+                {{ attachments|length == 0 ? "-" }}
+            </div>
+        </div>
+        <div class="field-group">
+            <div class="field-label">{{ "Incomplete Tasks"|translate }}</div>
+            <div class="field-value">
+                {% for task in tasks %}
+                    {% if not task.getClosed %}
+                        <div class="field-item">
+                            {{ task.getLabel }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {{ tasks|length == 0 ? "-" }}
+            </div>
+        </div>
+    </div>
+{% endif %}

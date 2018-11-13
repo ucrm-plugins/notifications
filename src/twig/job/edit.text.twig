@@ -1,0 +1,24 @@
+{% extends "common.text.twig" %}
+
+{% block body %}
+{% if not personalized or not user %}
+    {{- "Dear Sales Team"|translate }},{{ EOL -}}
+{% else %}
+    {{- "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},{{ EOL -}}
+{% endif %}
+{{- EOL -}}
+{%- if not personalized %}
+    {{- "The following Job has been edited in the UCRM."|translate }}{{ EOL -}}
+{%- else %}
+    {{- "The following Job, assigned to You, has been added in the UCRM."|translate }}{{ EOL -}}
+{% endif %}
+{{- EOL -}}
+{# Widget: Job #}
+{% include "_partials/job.text.twig" %}
+{% for ticket in tickets %}
+    {# Widget: Ticket #}
+    {%- include "_partials/ticket.text.twig" %}
+{% endfor %}
+{# Widget: Client #}
+{% include "_partials/client.text.twig" %}
+{% endblock %}

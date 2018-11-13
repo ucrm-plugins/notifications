@@ -1,0 +1,72 @@
+{% extends "common.html.twig" %}
+
+{#====================================================================================================================#}
+{# JOB - ADD                                                                                                          #}
+{#                                                                                                                    #}
+{# The lines of text for each section below can be edited to suit your individual needs.                              #}
+{#                                                                                                                    #}
+{# - The upper line of text is sent as the content anytime a recipient is determined by a manually entered            #}
+{#   email in the Plugin Settings (i.e. rspaeth@mvqn.net).                                                            #}
+{#                                                                                                                    #}
+{# - The lower line of text is sent as the content anytime a recipient is determined by a variable provided           #}
+{#   in the Plugin Settings (i.e. %JOB_ASSIGNED_USER%).                                                               #}
+{#                                                                                                                    #}
+{#====================================================================================================================#}
+
+{% block body %}
+    {# Email Subject #}
+    {% if not personalized %}
+        {{ setSubject("Job Added"|translate) }}
+    {% else %}
+        {{ setSubjectPersonalized("A Job has been Added and Assigned to You"|translate) }}
+    {% endif %}
+
+    {# Email Body #}
+    <div>
+        {# Salutation #}
+        <p>
+            {% if not personalized or not user %}
+                {{ "Dear Sales Team"|translate }},
+            {% else %}
+                {{ "Dear"|translate }} {{ user.getFirstName }} {{ user.getLastName }},
+            {% endif %}
+        </p>
+
+        {# Content #}
+        <p>
+            {% if not personalized %}
+                {{ "The following Job has been added to the UCRM."|translate }}
+            {% else %}
+                {{ "The following Job has been added to the UCRM and Assigned to You."|translate }}
+            {% endif %}
+        </p>
+
+        {# Job Widget #}
+        {% include "_partials/job.html.twig" %}
+
+        {% for ticket in tickets %}
+            {# Ticket Widget #}
+            {% include "_partials/ticket.html.twig" %}
+        {% endfor %}
+
+        {# Client Widget #}
+        {% include "_partials/client.html.twig" %}
+
+        {# Google Static Map w/ Marker #}
+        {% if googleMapsApiKey != "" and job.getGpsLat != "" and job.getGpsLon != ""  %}
+            <h5>{{ "Location"|translate }}</h5>
+            <div id="map">
+                {% set mapCenter = "center=" ~ job.getGpsLat ~ "," ~ job.getGpsLon %}
+                {% set mapZoom = "zoom=14" %}
+                {% set mapType = "maptype=roadmap" %}
+                {% set mapSize = "size=640x480" %}
+                {% set mapMarker = "markers=color:green|" ~ job.getGpsLat ~ "," ~ job.getGpsLon %}
+
+                {% set mapUrl = "https://maps.googleapis.com/maps/api/staticmap?" %}
+                {% set mapQuery = [ mapCenter, mapZoom, mapType, mapSize, mapMarker, "key=" ~ googleMapsApiKey ] %}
+
+                <img src="{{ mapUrl }}{{ mapQuery|join("&") }}"/>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
