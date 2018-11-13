@@ -255,7 +255,9 @@ use UCRM\Sessions\PluginSession;
         );
 
         // Log an access to the Template Editor and return HTTP 200 - OK
-        Log::http("Template editor accessed by an Admin User.", 200);
+        Log::info("Template editor accessed by an Admin User.");
+        http_response_code(200);
+        die();
     }
 
     // =================================================================================================================
