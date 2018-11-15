@@ -11,7 +11,7 @@ interactions directly.
 
 ## Installation
 
-1. Download the [Plugin](https://github.com/ucrm-plugins/raw/master/notifications/notifications.zip) and 
+1. Download the [Plugin](https://github.com/ucrm-plugins/notifications/raw/master/notifications.zip) and 
 add it to the System/Plugins in your UCRM.
 2. Configure the plugin as noted below and then "Save and Enable".
 3. Add a Webhook pointing to your newly added public URL or use the "Add webhook" button on the plugin page in newer 
