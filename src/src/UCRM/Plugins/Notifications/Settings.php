@@ -51,7 +51,7 @@ final class Settings extends SettingsBase
 	public const PLUGIN_PUBLIC_URL = 'https://ucrm.dev.mvqn.net/_plugins/notifications/public.php';
 
 	/** @const string An automatically generated UCRM API 'App Key' with read/write access. */
-	public const PLUGIN_APP_KEY = 'OqTpBGokE5o4OtCM9JqrRolNH0NKWxZ6ulC6slBxB38dq3MpKE6Zs16SUkGqVXA2';
+	public const PLUGIN_APP_KEY = 'dM4HucGFukLhH1OdezbV/zfepqM+g2S3b+u5VKV2Qovx464mHQgPnAMuM/01MojX';
 
 	/**
 	 * Verbose Debugging?

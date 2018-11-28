@@ -12,6 +12,14 @@
         },
         "author": "Ryan Spaeth <rspaeth@mvqn.net>"
     },
+    "menu": [
+        {
+            "key": "Add-Ons",
+            "label": "Admin Notifications",
+            "type": "admin",
+            "target": "iframe"
+        }
+    ],
     "configuration": [
         {
             "key": "verboseDebug",
