@@ -30,7 +30,9 @@ Plugin::initialize(__DIR__);
 Plugin::createSettings("UCRM\\Plugins\\Notifications");
 
 // Generate the REST API URL.
-$restUrl = (getenv("UCRM_REST_URL_DEV") ?: "http://localhost")."/api/v1.0";
+$restUrl = rtrim(getenv("UCRM_REST_URL_DEV") ?: Settings::UCRM_LOCAL_URL, "/")."/api/v1.0";
+
+//echo $restUrl;
 
 // Configure the REST Client...
 RestClient::setBaseUrl($restUrl); //Settings::UCRM_PUBLIC_URL . "api/v1.0");

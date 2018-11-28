@@ -1,5 +1,5 @@
 {
-    "name": "mvqn-ucrm/plugin-notifier",
+    "name": "ucrm-plugins/notifications",
     "description": "A simple UCRM Plugin to send notifications for items not currently built-in.",
     "license": "MIT",
     "authors": [

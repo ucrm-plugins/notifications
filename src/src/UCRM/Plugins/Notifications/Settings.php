@@ -1,5 +1,5 @@
-<?php
-/** @noinspection SpellCheckingInspection */declare(strict_types=1);
+<?php /** @noinspection SpellCheckingInspection */
+declare(strict_types=1);
 
 namespace UCRM\Plugins\Notifications;
 
@@ -42,13 +42,16 @@ final class Settings extends SettingsBase
 	public const PLUGIN_SOURCE_PATH = 'C:\Users\rspaeth\Documents\PhpStorm\Projects\ucrm-plugins\notifications\src\src';
 
 	/** @const string The publicly accessible URL of this UCRM, null if not configured in UCRM. */
-	public const UCRM_PUBLIC_URL = 'http://ucrm.dev.mvqn.net/';
+	public const UCRM_PUBLIC_URL = 'https://ucrm.dev.mvqn.net/';
+
+	/** @const string The locally accessible URL of this UCRM, null if not configured in UCRM. */
+	public const UCRM_LOCAL_URL = 'https://localhost/';
 
 	/** @const string The publicly accessible URL assigned to this Plugin by the UCRM. */
-	public const PLUGIN_PUBLIC_URL = 'http://ucrm.dev.mvqn.net/_plugins/notifications/public.php';
+	public const PLUGIN_PUBLIC_URL = 'https://ucrm.dev.mvqn.net/_plugins/notifications/public.php';
 
 	/** @const string An automatically generated UCRM API 'App Key' with read/write access. */
-	public const PLUGIN_APP_KEY = 'q47JcfDx/9KkAZEOfKDsf/t1MWkmlAtDvMe3cu9Omolh76enbTyY6+tdY7e17fAz';
+	public const PLUGIN_APP_KEY = 'OqTpBGokE5o4OtCM9JqrRolNH0NKWxZ6ulC6slBxB38dq3MpKE6Zs16SUkGqVXA2';
 
 	/**
 	 * Verbose Debugging?

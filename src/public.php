@@ -18,7 +18,9 @@ use UCRM\Plugins\Controllers\TicketCommentEventController;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-use UCRM\Sessions\PluginSession;
+//use UCRM\Sessions\PluginSession;
+use UCRM\Common\Security;
+use UCRM\Sessions\Session;
 
 /**
  * public.php
@@ -120,7 +122,7 @@ use UCRM\Sessions\PluginSession;
     // =================================================================================================================
 
     // IF the array/payload is empty...
-    if (!$dataArray)
+    if (!$dataArray && $_SERVER["REQUEST_METHOD"] !== "POST")
     {
         // THEN display the Template Editor system!
 
@@ -132,12 +134,14 @@ use UCRM\Sessions\PluginSession;
         if (session_status() == PHP_SESSION_NONE)
             session_start();
 
+        $user = Session::getCurrentUser();
+
         // Display an error if no user is authenticated!
-        if(!PluginSession::getCurrentlyAuthenticated())
+        if(!$user)
             Log::http("No User is currently Authenticated!", 401);
 
         // Display an error if the authenticated user is NOT an Admin!
-        if(!PluginSession::isAuthenticatedAdmin())
+        if($user->getUserGroup() !== "Admin Group")
             Log::http("Currently Authenticated User is not an Admin!", 401);
 
         // ---------------------------------------------------------------------------------------------------------
