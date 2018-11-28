@@ -2,12 +2,12 @@
     "version": "1",
     "information": {
         "name": "notifications",
-        "displayName": "UCRM Notifications Plugin for Admins",
+        "displayName": "Admin Notifications",
         "description": "A simple UCRM Plugin to send notifications for items not currently built-in.",
         "url": "https://github.com/mvqn/ucrm-plugins",
-        "version": "2.1.0",
+        "version": "2.2.0",
         "ucrmVersionCompliancy": {
-            "min": "2.14.0-beta2",
+            "min": "2.14.1",
             "max": null
         },
         "author": "Ryan Spaeth <rspaeth@mvqn.net>"
