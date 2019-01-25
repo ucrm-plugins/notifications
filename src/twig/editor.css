@@ -1,5 +1,6 @@
 
 body {
+    background-color: #edf0f3;
     margin: 1rem;
 }
 
@@ -18,7 +19,10 @@ body {
     //min-height: 200px;
     //width: 80%;
 }
+
+/*
 .scrollmargin {
     height: 80px;
     text-align: center;
 }
+*/
