@@ -5,7 +5,7 @@
         "displayName": "UCRM Notifications Plugin for Admins",
         "description": "A simple UCRM Plugin to send notifications for items not currently built-in.",
         "url": "https://github.com/mvqn/ucrm-plugins",
-        "version": "2.1.0",
+        "version": "2.1.2",
         "ucrmVersionCompliancy": {
             "min": "2.14.0-beta2",
             "max": null

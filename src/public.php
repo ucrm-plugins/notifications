@@ -505,7 +505,7 @@ use UCRM\Sessions\Session;
             if($verboseDebug)
             {
                 $mail->Debugoutput = "echo";
-                $mail->SMTPDebug = 2;
+                $mail->SMTPDebug = 3;
             }
 
             // Configure the SMTP Settings...
@@ -519,6 +519,17 @@ use UCRM\Sessions\Session;
             $mail->Port = Config::getSmtpPort();
             $mail->setFrom(Config::getSmtpSenderEmail());
             $mail->addReplyTo(Config::getSmtpSenderEmail());
+
+            if(!Config::getSmtpVerifySslCertificate())
+            {
+                $mail->SMTPOptions = [
+                    "ssl" => [
+                        "verify_peer" => false,
+                        "verify_peer_name" => false,
+                        "allow_self_signed" => true,
+                    ]
+                ];
+            }
 
             // Setup for HTML emails, if desired.
             $mail->isHTML(Settings::getSmtpUseHTML());
@@ -556,9 +567,10 @@ use UCRM\Sessions\Session;
             }
 
             // Append an extra newline when "Verbose Debugging" is enabled to properly format the log!
-            if($verboseDebug)
-                echo "\n";
+            //if($verboseDebug)
+            //    echo "\n";
 
+            //http_response_code(200);
             // IF we've made it this far, the message should have sent successfully, notify the system.
             Log::http("A valid Webhook Event was received and a notification message sent successfully!", 200);
         }

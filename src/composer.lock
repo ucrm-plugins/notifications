@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abd775e452be9756e9a4c1e0cb10c6b7",
+    "content-hash": "48326d686d50fd588289aa31c11a49a2",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -187,32 +187,33 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.4.2",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
+                "reference": "9f83dded91781a01c63574e387eaa769be769115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
+                "reference": "9f83dded91781a01c63574e387eaa769be769115",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "psr/http-message": "~1.0"
+                "psr/http-message": "~1.0",
+                "ralouphie/getallheaders": "^2.0.5"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -242,13 +243,14 @@
             "keywords": [
                 "http",
                 "message",
+                "psr-7",
                 "request",
                 "response",
                 "stream",
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20T17:10:46+00:00"
+            "time": "2018-12-04T20:46:45+00:00"
         },
         {
             "name": "mvqn/annotations",
@@ -377,16 +379,16 @@
         },
         {
             "name": "mvqn/data",
-            "version": "1.2.1",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mvqn/data.git",
-                "reference": "f4ad6d712ef27404ee724be456f4ad44d1e781f3"
+                "reference": "7572389c46bc8e2ed60ed1ce48dc8d688cb81f5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mvqn/data/zipball/f4ad6d712ef27404ee724be456f4ad44d1e781f3",
-                "reference": "f4ad6d712ef27404ee724be456f4ad44d1e781f3",
+                "url": "https://api.github.com/repos/mvqn/data/zipball/7572389c46bc8e2ed60ed1ce48dc8d688cb81f5f",
+                "reference": "7572389c46bc8e2ed60ed1ce48dc8d688cb81f5f",
                 "shasum": ""
             },
             "require": {
@@ -420,7 +422,7 @@
                 }
             ],
             "description": "A simple database library.",
-            "time": "2018-11-10T23:17:45+00:00"
+            "time": "2018-12-02T23:05:28+00:00"
         },
         {
             "name": "mvqn/dynamics",
@@ -509,21 +511,22 @@
         },
         {
             "name": "mvqn/rest",
-            "version": "1.3.1",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mvqn/rest.git",
-                "reference": "fa6d1d853d01e76235cec99a804f2c6e9f1e0b69"
+                "reference": "e20199c171e4df2520c386ee11b27c34f9e32461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mvqn/rest/zipball/fa6d1d853d01e76235cec99a804f2c6e9f1e0b69",
-                "reference": "fa6d1d853d01e76235cec99a804f2c6e9f1e0b69",
+                "url": "https://api.github.com/repos/mvqn/rest/zipball/e20199c171e4df2520c386ee11b27c34f9e32461",
+                "reference": "e20199c171e4df2520c386ee11b27c34f9e32461",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
+                "guzzlehttp/guzzle": "~6.0",
                 "mvqn/annotations": "~1",
                 "mvqn/collections": "~1",
                 "mvqn/common": "~1",
@@ -531,7 +534,8 @@
                 "php": "~7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "7.2.7"
+                "phpunit/phpunit": "7.2.7",
+                "vlucas/phpdotenv": "^2.5"
             },
             "type": "library",
             "autoload": {
@@ -550,7 +554,7 @@
                 }
             ],
             "description": "A simple REST Client library for interfacing with generic REST Endpoints.",
-            "time": "2018-11-19T22:17:44+00:00"
+            "time": "2018-12-10T02:10:02+00:00"
         },
         {
             "name": "mvqn/twig",
@@ -595,16 +599,16 @@
         },
         {
             "name": "nette/php-generator",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "d36064d45fad4195f3220ff8c656b7d50cb80333"
+                "reference": "9de4e093a130f7a1bd175198799ebc0efbac6924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/d36064d45fad4195f3220ff8c656b7d50cb80333",
-                "reference": "d36064d45fad4195f3220ff8c656b7d50cb80333",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/9de4e093a130f7a1bd175198799ebc0efbac6924",
+                "reference": "9de4e093a130f7a1bd175198799ebc0efbac6924",
                 "shasum": ""
             },
             "require": {
@@ -653,7 +657,7 @@
                 "php",
                 "scaffolding"
             ],
-            "time": "2018-08-29T17:24:49+00:00"
+            "time": "2018-11-27T19:00:14+00:00"
         },
         {
             "name": "nette/utils",
@@ -899,6 +903,46 @@
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
+            "name": "ralouphie/getallheaders",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ralouphie/getallheaders.git",
+                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7.0",
+                "satooshi/php-coveralls": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/getallheaders.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
+                }
+            ],
+            "description": "A polyfill for getallheaders.",
+            "time": "2016-02-11T07:05:27+00:00"
+        },
+        {
             "name": "stichoza/google-translate-php",
             "version": "v3.2.14",
             "source": {
@@ -1066,32 +1110,32 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.5.0",
+            "version": "v2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323"
+                "reference": "7d7342c8a4059fefb9b8d07db0cc14007021f9b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6a5f676b77a90823c2d4eaf76137b771adf31323",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7d7342c8a4059fefb9b8d07db0cc14007021f9b7",
+                "reference": "7d7342c8a4059fefb9b8d07db0cc14007021f9b7",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
                 "symfony/polyfill-ctype": "^1.8",
-                "symfony/polyfill-mbstring": "~1.0"
+                "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.3"
+                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -1129,20 +1173,20 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-07-13T07:18:09+00:00"
+            "time": "2019-01-14T15:00:48+00:00"
         },
         {
             "name": "ucrm-modules/common",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ucrm-modules/common.git",
-                "reference": "f22f3c528a002d56b897eae8a878ae70db01d904"
+                "reference": "2c489e099cb6c48f473144d09c93eec0bbd918c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ucrm-modules/common/zipball/f22f3c528a002d56b897eae8a878ae70db01d904",
-                "reference": "f22f3c528a002d56b897eae8a878ae70db01d904",
+                "url": "https://api.github.com/repos/ucrm-modules/common/zipball/2c489e099cb6c48f473144d09c93eec0bbd918c0",
+                "reference": "2c489e099cb6c48f473144d09c93eec0bbd918c0",
                 "shasum": ""
             },
             "require": {
@@ -1179,7 +1223,7 @@
                 }
             ],
             "description": "A common set of classes to ease UCRM Plugin development.",
-            "time": "2018-11-24T04:48:55+00:00"
+            "time": "2018-11-30T04:15:29+00:00"
         },
         {
             "name": "ucrm-modules/data",
@@ -1229,16 +1273,16 @@
         },
         {
             "name": "ucrm-modules/rest",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ucrm-modules/rest.git",
-                "reference": "ffce59ef2b9eb4746192d72139205b68f1a38bf3"
+                "reference": "ca2a0f3e744bd3dac9aea3aea063785bf1a38ac8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ucrm-modules/rest/zipball/ffce59ef2b9eb4746192d72139205b68f1a38bf3",
-                "reference": "ffce59ef2b9eb4746192d72139205b68f1a38bf3",
+                "url": "https://api.github.com/repos/ucrm-modules/rest/zipball/ca2a0f3e744bd3dac9aea3aea063785bf1a38ac8",
+                "reference": "ca2a0f3e744bd3dac9aea3aea063785bf1a38ac8",
                 "shasum": ""
             },
             "require": {
@@ -1271,7 +1315,7 @@
                 }
             ],
             "description": "A simple REST Client library for interfacing with UCRM Endpoints.",
-            "time": "2018-11-23T23:38:51+00:00"
+            "time": "2018-11-28T07:12:31+00:00"
         }
     ],
     "packages-dev": [
@@ -2635,16 +2679,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e"
+                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
-                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/cfd5dc225767ca154853752abc93aeec040fcf36",
+                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36",
                 "shasum": ""
             },
             "require": {
@@ -2681,24 +2725,25 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-07-29T20:33:41+00:00"
+            "time": "2018-10-30T17:29:25+00:00"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "php": "^5.3.3 || ^7.0",
+                "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6",
@@ -2731,7 +2776,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-01-29T19:49:41+00:00"
+            "time": "2018-12-25T11:19:39+00:00"
         }
     ],
     "aliases": [],

@@ -32,7 +32,15 @@ Plugin::createSettings("UCRM\\Plugins\\Notifications");
 // Generate the REST API URL.
 $restUrl = rtrim(getenv("UCRM_REST_URL_DEV") ?: Settings::UCRM_LOCAL_URL, "/")."/api/v1.0";
 
-//echo $restUrl;
+//echo "URL: $restUrl\n\n";
+//echo Config::getSmtpHost()."\n";
+//echo Config::getSmtpPort()."\n";
+//echo Config::getSmtpAuthentication()."\n"; // <blank>
+//echo Config::getSmtpUsername()."\n";
+//echo (Config::getSmtpVerifySslCertificate() ? "T" : "F")."\n";
+//echo Config::getSmtpEncryption()."\n";
+//echo Config::getSmtpPassword()."\n\n";
+
 
 // Configure the REST Client...
 RestClient::setBaseUrl($restUrl); //Settings::UCRM_PUBLIC_URL . "api/v1.0");
@@ -40,6 +48,11 @@ RestClient::setHeaders([
     "Content-Type: application/json",
     "X-Auth-App-Key: " . Settings::PLUGIN_APP_KEY
 ]);
+
+//$countries = \UCRM\REST\Endpoints\Country::get();
+//echo $countries;
+//echo "\n";
+
 
 // Configure the language...
 //$translations = include_once __DIR__."/translations/" . (Config::getLanguage() ?: "en_US") . ".php";
